@@ -1,6 +1,8 @@
 package ru.kpfu.itis.Models;
 
 import lombok.*;
+import ru.kpfu.itis.Models.Enums.Role;
+import ru.kpfu.itis.Models.Enums.State;
 
 import javax.persistence.*;
 import java.util.List;
@@ -31,6 +33,9 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private State state;
 
+    @OneToMany(mappedBy = "owner")
+    private List<DateInterval> dateIntervals;
+
     @OneToMany(mappedBy = "user")
-    List<Token> tokens;
+    private List<Token> tokens;
 }

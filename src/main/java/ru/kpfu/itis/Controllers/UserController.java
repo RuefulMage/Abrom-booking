@@ -29,7 +29,7 @@ public class UserController {
        return userRepository.findOne(user_id);
     }
 
-    @PostMapping("users")
+    @PostMapping("/user/add")
     public ResponseEntity<Object> addUser(@RequestBody UserForm userForm){
         userService.signUp(userForm);
         return ResponseEntity.ok().build();

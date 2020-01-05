@@ -3,7 +3,7 @@ package ru.kpfu.itis.Security.UserDetails;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import ru.kpfu.itis.Models.State;
+import ru.kpfu.itis.Models.Enums.State;
 import ru.kpfu.itis.Models.User;
 
 import java.util.Collection;

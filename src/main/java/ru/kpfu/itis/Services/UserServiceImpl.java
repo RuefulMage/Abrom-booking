@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.kpfu.itis.Forms.UserForm;
-import ru.kpfu.itis.Models.Role;
-import ru.kpfu.itis.Models.State;
+import ru.kpfu.itis.Models.Enums.Role;
+import ru.kpfu.itis.Models.Enums.State;
 import ru.kpfu.itis.Models.User;
 import ru.kpfu.itis.Repositories.UserRepository;
 
