@@ -7,7 +7,7 @@
     <groupId>ru.kpfu.itis</groupId>
     <artifactId>AbromX2</artifactId>
     <version>0.1</version>
-<!--    <packaging>war</packaging>-->
+    <packaging>war</packaging>
     <build>
         <plugins>
             <plugin>
