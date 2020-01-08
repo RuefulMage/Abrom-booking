@@ -1,5 +1,6 @@
 package ru.kpfu.itis.Models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import ru.kpfu.itis.Models.Enums.Role;
 import ru.kpfu.itis.Models.Enums.State;
@@ -34,10 +35,10 @@ public class User {
     private State state;
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
-//    @Basic(fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<DateInterval> dateIntervals;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-//    @Basic(fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Token> tokens;
 }

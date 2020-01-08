@@ -1,5 +1,6 @@
 package ru.kpfu.itis.Models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,6 +33,7 @@ public class DateInterval {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
+    @JsonBackReference
 //    @Basic(fetch = FetchType.LAZY)
     private User owner;
 }

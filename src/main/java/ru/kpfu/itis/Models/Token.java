@@ -1,5 +1,6 @@
 package ru.kpfu.itis.Models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,6 +22,8 @@ public class Token {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @Basic(fetch = FetchType.LAZY)
+//    @Basic(fetch = FetchType.LAZY)
+    @JsonBackReference
     private User user;
+
 }
