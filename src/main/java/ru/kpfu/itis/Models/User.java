@@ -37,7 +37,7 @@ public class User {
     @Basic(fetch = FetchType.LAZY)
     private List<DateInterval> dateIntervals;
 
-    @OneToMany(mappedBy = "user")
-    @Basic(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+//    @Basic(fetch = FetchType.LAZY)
     private List<Token> tokens;
 }
