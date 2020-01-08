@@ -32,5 +32,6 @@ public class DateInterval {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @Basic(fetch = FetchType.LAZY)
     private User owner;
 }
