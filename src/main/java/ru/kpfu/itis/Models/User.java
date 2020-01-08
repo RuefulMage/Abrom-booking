@@ -36,6 +36,7 @@ public class User {
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
 //    @Basic(fetch = FetchType.LAZY)
     private List<DateInterval> dateIntervals;
+    acascascascas
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 //    @Basic(fetch = FetchType.LAZY)
