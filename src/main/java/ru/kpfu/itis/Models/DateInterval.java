@@ -30,7 +30,7 @@ public class DateInterval {
     @Enumerated(value = EnumType.STRING)
     private IntervalStatus intervalStatus;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
 //    @Basic(fetch = FetchType.LAZY)
     private User owner;
