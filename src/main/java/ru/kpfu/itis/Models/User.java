@@ -34,8 +34,10 @@ public class User {
     private State state;
 
     @OneToMany(mappedBy = "owner")
+    @Basic(fetch = FetchType.LAZY)
     private List<DateInterval> dateIntervals;
 
     @OneToMany(mappedBy = "user")
+    @Basic(fetch = FetchType.LAZY)
     private List<Token> tokens;
 }
