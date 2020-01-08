@@ -33,8 +33,8 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private State state;
 
-    @OneToMany(mappedBy = "owner")
-    @Basic(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
+//    @Basic(fetch = FetchType.LAZY)
     private List<DateInterval> dateIntervals;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
