@@ -34,11 +34,11 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private State state;
 
-    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "owner")
     @JsonManagedReference
     private List<DateInterval> dateIntervals;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user")
     @JsonManagedReference
     private List<Token> tokens;
 }

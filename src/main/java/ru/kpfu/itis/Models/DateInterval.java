@@ -31,9 +31,8 @@ public class DateInterval {
     @Enumerated(value = EnumType.STRING)
     private IntervalStatus intervalStatus;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne()
     @JoinColumn(name = "user_id")
     @JsonBackReference
-//    @Basic(fetch = FetchType.LAZY)
     private User owner;
 }

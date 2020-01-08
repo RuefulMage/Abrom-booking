@@ -22,7 +22,6 @@ public class Token {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-//    @Basic(fetch = FetchType.LAZY)
     @JsonBackReference
     private User user;
 
