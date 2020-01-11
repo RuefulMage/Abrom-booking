@@ -38,6 +38,7 @@ public class LoginServiceImpl implements LoginService {
                         .build();
 
                 tokensRepository.save(token);
+//                System.out.println(TokenDTO.from(token));
                 return TokenDTO.from(token);
             }
         }throw new IllegalArgumentException("User not found");
