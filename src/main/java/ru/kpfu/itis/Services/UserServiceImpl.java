@@ -10,6 +10,7 @@ import ru.kpfu.itis.Models.User;
 import ru.kpfu.itis.Repositories.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -49,5 +50,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findOne(Long user_id) {
         return userRepository.findOne(user_id);
+    }
+
+    @Override
+    public User findOneByLogin(String login) {
+        Optional<User> userCandidate = userRepository.findOneByLogin(login);
+
+        if(userCandidate.isPresent()){
+            return userCandidate.get();
+        }
+        else{
+            throw new IllegalArgumentException("User not found");
+        }
     }
 }
