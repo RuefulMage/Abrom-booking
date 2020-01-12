@@ -3,6 +3,7 @@ package ru.kpfu.itis.Controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import ru.kpfu.itis.Forms.DateIntervalForm;
@@ -30,8 +31,8 @@ public class DateIntervalController {
     @PutMapping("/date/add")
     @ResponseStatus(HttpStatus.CREATED)
     public String addDateInterval(
-            TokenAuthentication authentication,
             @RequestBody DateIntervalForm dateIntervalForm){
+        TokenAuthentication authentication = (TokenAuthentication) SecurityContextHolder.getContext().getAuthentication();
         if(authentication == null){
             return "SORRYYYYYYYYY";
         }

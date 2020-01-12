@@ -24,11 +24,6 @@ public class UserController {
 
     @GetMapping("/users")
     public List<User> getUsers(){
-        TokenAuthentication authentication = (TokenAuthentication) SecurityContextHolder.getContext().getAuthentication();
-        if(authentication == null){
-            System.out.println("FUUUUUUUCK");
-            return null;
-        }
         return userRepository.findAll();
     }
 
