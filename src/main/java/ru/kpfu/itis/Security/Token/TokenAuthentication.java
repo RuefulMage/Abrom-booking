@@ -52,6 +52,10 @@ public class TokenAuthentication implements Authentication {
 
     @Override
     public String getName() {
-        return token;
+        return userDetails.getUsername();
+    }
+
+    public String getToken(){
+        return this.token;
     }
 }

@@ -3,6 +3,7 @@ package ru.kpfu.itis.Controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import ru.kpfu.itis.Forms.UserForm;
 import ru.kpfu.itis.Models.User;
@@ -22,7 +23,8 @@ public class UserController {
 
 
     @GetMapping("/users")
-    public List<User> getUsers(TokenAuthentication authentication){
+    public List<User> getUsers(){
+        TokenAuthentication authentication = (TokenAuthentication) SecurityContextHolder.getContext().getAuthentication();
         if(authentication == null){
             System.out.println("FUUUUUUUCK");
             return null;
