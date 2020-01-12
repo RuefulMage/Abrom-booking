@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.kpfu.itis.Forms.UserForm;
 import ru.kpfu.itis.Models.User;
 import ru.kpfu.itis.Repositories.UserRepository;
+import ru.kpfu.itis.Security.Token.TokenAuthentication;
 import ru.kpfu.itis.Services.UserService;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class UserController {
 
 
     @GetMapping("/users")
-    public List<User> getUsers(Authentication authentication){
+    public List<User> getUsers(TokenAuthentication authentication){
         if(authentication == null){
             System.out.println("FUUUUUUUCK");
             return null;
