@@ -26,6 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationProvider(tokenAuthenticationProvider)
                 .authorizeRequests()
                 .antMatchers("/users/**").hasAuthority("USER")
+                .antMatchers("/date/**").hasAuthority("USER")
                 .antMatchers("/login").permitAll();
         http.csrf().disable();
     }
