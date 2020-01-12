@@ -20,7 +20,7 @@ public class DateIntervalServiceImpl implements DateIntervalService {
     }
 
     @Override
-    public void addDateInterval(User user, DateIntervalForm dateIntervalForm) {
-        System.out.println(user);
+    public String addDateInterval(User user, DateIntervalForm dateIntervalForm) {
+        return user.toString();
     }
 }

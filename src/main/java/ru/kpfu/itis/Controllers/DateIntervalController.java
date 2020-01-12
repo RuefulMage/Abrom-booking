@@ -29,12 +29,14 @@ public class DateIntervalController {
 
     @PutMapping("/date/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addDateInterval(
+    public String addDateInterval(
             TokenAuthentication authentication,
             @RequestBody DateIntervalForm dateIntervalForm){
+        if(authentication == null){
+            return "SORRYYYYYYYYY";
+        }
         UserDetails userDetails =  (UserDetails)authentication.getDetails();
         User user = userService.findOneByLogin(userDetails.getUsername());
-        dateIntervalService.addDateInterval(user, dateIntervalForm);
-
+        return dateIntervalService.addDateInterval(user, dateIntervalForm);
     }
 }
