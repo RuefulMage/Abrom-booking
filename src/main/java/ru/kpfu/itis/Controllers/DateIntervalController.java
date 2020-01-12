@@ -33,7 +33,8 @@ public class DateIntervalController {
     public String addDateInterval(
             @RequestBody DateIntervalForm dateIntervalForm){
         TokenAuthentication authentication = (TokenAuthentication) SecurityContextHolder.getContext().getAuthentication();
-        if(authentication == null){
+
+        if(authentication != null){
             return authentication.getName();
         }
         UserDetails userDetails =  (UserDetails)authentication.getDetails();
