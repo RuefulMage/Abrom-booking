@@ -9,9 +9,11 @@ import ru.kpfu.itis.Models.Enums.State;
 import ru.kpfu.itis.Models.User;
 import ru.kpfu.itis.Repositories.UserRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 @Service
 public class UserServiceImpl implements UserService {
 

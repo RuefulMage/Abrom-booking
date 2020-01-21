@@ -7,8 +7,10 @@ import ru.kpfu.itis.Models.DateInterval;
 import ru.kpfu.itis.Models.User;
 import ru.kpfu.itis.Repositories.DateIntervalsRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
+@Transactional
 @Service
 public class DateIntervalServiceImpl implements DateIntervalService {
     @Autowired

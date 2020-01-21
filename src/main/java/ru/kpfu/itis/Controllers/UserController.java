@@ -22,6 +22,7 @@ public class UserController {
     private UserService userService;
 
 
+
     @GetMapping("/users")
     public List<User> getUsers(){
         TokenAuthentication authentication = (TokenAuthentication) SecurityContextHolder.getContext().getAuthentication();

@@ -11,8 +11,10 @@ import ru.kpfu.itis.Repositories.TokensRepository;
 import ru.kpfu.itis.Repositories.UserRepository;
 import ru.kpfu.itis.Transfer.TokenDTO;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
+@Transactional
 @Service
 public class LoginServiceImpl implements LoginService {
     @Autowired

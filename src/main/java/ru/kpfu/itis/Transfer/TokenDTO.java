@@ -3,9 +3,12 @@ package ru.kpfu.itis.Transfer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import ru.kpfu.itis.Models.Token;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 public class TokenDTO {
 
