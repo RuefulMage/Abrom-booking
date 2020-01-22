@@ -1,6 +1,7 @@
 package ru.kpfu.itis.Services;
 
 import ru.kpfu.itis.Forms.DateIntervalForm;
+import ru.kpfu.itis.Models.Cottage;
 import ru.kpfu.itis.Models.DateInterval;
 import ru.kpfu.itis.Models.User;
 
@@ -12,4 +13,6 @@ public interface DateIntervalService {
     void addDateInterval(User user, DateIntervalForm dateIntervalForm);
 
     boolean checkIntervalForFree(DateInterval dateInterval);
+
+    List<DateInterval> findAllByCottage(Cottage cottage);
 }
