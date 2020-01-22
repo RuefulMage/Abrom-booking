@@ -10,4 +10,6 @@ public interface DateIntervalService {
     List<DateInterval> findAll();
 
     void addDateInterval(User user, DateIntervalForm dateIntervalForm);
+
+    boolean checkIntervalForFree(DateInterval dateInterval);
 }
