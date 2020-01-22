@@ -3,6 +3,7 @@ package ru.kpfu.itis.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.kpfu.itis.Forms.DateIntervalForm;
+import ru.kpfu.itis.Models.Cottage;
 import ru.kpfu.itis.Models.DateInterval;
 import ru.kpfu.itis.Models.Enums.IntervalStatus;
 import ru.kpfu.itis.Models.User;
@@ -53,6 +54,11 @@ public class DateIntervalServiceImpl implements DateIntervalService {
             }
         }
         return true;
+    }
+
+    @Override
+    public List<DateInterval> findAllByCottage(Cottage cottage) {
+        return null;
     }
 
     boolean isWithinRange(Date testDate, Date startDate, Date endDate) {

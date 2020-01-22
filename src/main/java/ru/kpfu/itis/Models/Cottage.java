@@ -25,7 +25,7 @@ public class Cottage {
 
     private String description;
 
-    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cottage", fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<DateInterval> dateIntervals;
 }

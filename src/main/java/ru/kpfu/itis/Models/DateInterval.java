@@ -33,4 +33,9 @@ public class DateInterval {
     @JoinColumn(name = "user_id")
     @JsonBackReference
     private User owner;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "cottage_id")
+    @JsonBackReference
+    private User cottage;
 }
