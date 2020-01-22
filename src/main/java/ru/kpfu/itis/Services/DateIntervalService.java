@@ -9,5 +9,5 @@ import java.util.List;
 public interface DateIntervalService {
     List<DateInterval> findAll();
 
-    String addDateInterval(User user, DateIntervalForm dateIntervalForm);
+    void addDateInterval(User user, DateIntervalForm dateIntervalForm);
 }

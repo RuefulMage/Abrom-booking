@@ -14,7 +14,7 @@ import java.util.Date;
 @Builder
 public class DateIntervalForm {
 
-    private Date startOfIntreval;
+    private Date startOfInterval;
     private Date endOfInterval;
 
 }

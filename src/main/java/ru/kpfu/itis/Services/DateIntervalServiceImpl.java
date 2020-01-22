@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.kpfu.itis.Forms.DateIntervalForm;
 import ru.kpfu.itis.Models.DateInterval;
+import ru.kpfu.itis.Models.Enums.IntervalStatus;
+import ru.kpfu.itis.Models.Enums.Role;
+import ru.kpfu.itis.Models.Enums.State;
 import ru.kpfu.itis.Models.User;
 import ru.kpfu.itis.Repositories.DateIntervalsRepository;
 
@@ -22,7 +25,17 @@ public class DateIntervalServiceImpl implements DateIntervalService {
     }
 
     @Override
-    public String addDateInterval(User user, DateIntervalForm dateIntervalForm) {
-        return user.toString();
+    public void addDateInterval(User user, DateIntervalForm dateIntervalForm) {
+
+        DateInterval dateInterval = DateInterval.builder()
+                .startOfInterval(dateIntervalForm.getStartOfInterval())
+                .endOfInterval(dateIntervalForm.getEndOfInterval())
+                .intervalStatus(IntervalStatus.PENDING)
+                .owner(user)
+                .build();
+
+
+        dateIntervalsRepository.save(dateInterval);
+
     }
 }
