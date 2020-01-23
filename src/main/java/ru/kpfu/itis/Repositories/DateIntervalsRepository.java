@@ -9,5 +9,8 @@ import java.util.List;
 
 @Repository
 public interface DateIntervalsRepository extends JpaRepository<DateInterval, Long> {
+
     List<DateInterval> findAllByCottage(Cottage cottage);
+
+
 }
