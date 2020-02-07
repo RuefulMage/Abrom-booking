@@ -9,4 +9,6 @@ public interface CottageService {
 
     void addCottage(Cottage cottage);
 
+    Cottage getCottafeByID(Long id);
+
 }

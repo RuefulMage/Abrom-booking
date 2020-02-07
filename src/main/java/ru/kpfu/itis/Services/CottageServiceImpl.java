@@ -46,4 +46,16 @@ public class CottageServiceImpl implements CottageService {
     public void addCottage(Cottage cottage) {
 
     }
+
+    @Override
+    public Cottage getCottafeByID(Long id) {
+        Optional<Cottage> cottageCandidate = cottagesRepository.findById(id);
+
+        if(cottageCandidate.isPresent()){
+            return cottageCandidate.get();
+        }
+        else{
+            throw new IllegalArgumentException("Cottage not found");
+        }
+    }
 }

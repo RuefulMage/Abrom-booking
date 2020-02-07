@@ -10,7 +10,7 @@ import java.util.List;
 public interface DateIntervalService {
     List<DateInterval> findAll();
 
-    void addDateInterval(User user, DateIntervalForm dateIntervalForm);
+    void addDateInterval(String userName, DateIntervalForm dateIntervalForm);
 
     boolean checkIntervalForFree(DateInterval dateInterval);
 

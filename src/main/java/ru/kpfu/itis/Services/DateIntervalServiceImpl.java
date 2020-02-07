@@ -7,7 +7,9 @@ import ru.kpfu.itis.Models.Cottage;
 import ru.kpfu.itis.Models.DateInterval;
 import ru.kpfu.itis.Models.Enums.IntervalStatus;
 import ru.kpfu.itis.Models.User;
+import ru.kpfu.itis.Repositories.CottagesRepository;
 import ru.kpfu.itis.Repositories.DateIntervalsRepository;
+import ru.kpfu.itis.Repositories.UserRepository;
 
 import javax.transaction.Transactional;
 import java.util.Date;
@@ -19,19 +21,32 @@ public class DateIntervalServiceImpl implements DateIntervalService {
     @Autowired
     private DateIntervalsRepository dateIntervalsRepository;
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private CottageService cottageService;
+
+
     @Override
     public List<DateInterval> findAll() {
         return dateIntervalsRepository.findAll();
     }
 
     @Override
-    public void addDateInterval(User user, DateIntervalForm dateIntervalForm) {
+    public void addDateInterval(String userName, DateIntervalForm dateIntervalForm) {
+
+
+        User user = userService.findOneByLogin(userName);
+
+        Cottage cottage = cottageService.getCottafeByID(dateIntervalForm.getCottageID());
 
         DateInterval dateInterval = DateInterval.builder()
                 .startOfInterval(dateIntervalForm.getStartOfInterval())
                 .endOfInterval(dateIntervalForm.getEndOfInterval())
                 .intervalStatus(IntervalStatus.PENDING)
                 .owner(user)
+                .cottage(cottage)
                 .build();
         if(checkIntervalForFree(dateInterval)){
             dateIntervalsRepository.save(dateInterval);

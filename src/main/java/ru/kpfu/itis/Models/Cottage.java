@@ -10,7 +10,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@EqualsAndHashCode
+@ToString(exclude = {"dateIntervals"})
 @Entity
 @Table(name = "cottage")
 public class Cottage {
@@ -19,9 +20,10 @@ public class Cottage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
+    @Column(name = "address", unique = true, nullable = false)
     private String address;
 
+    @Column(name = "description")
     private String description;
 
     @OneToMany(mappedBy = "cottage", fetch = FetchType.LAZY)

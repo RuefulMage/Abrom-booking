@@ -11,6 +11,8 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
+@ToString
 @Builder
 @Entity
 @Table(name = "date_interval")
@@ -21,12 +23,15 @@ public class DateInterval {
     private Long id;
 
     @Temporal(TemporalType.DATE)
+    @Column(name = "startOfInterval", nullable = false)
     private Date startOfInterval;
 
     @Temporal(TemporalType.DATE)
+    @Column(name = "endOfInterval", nullable = false)
     private Date endOfInterval;
 
     @Enumerated(value = EnumType.STRING)
+    @Column(name = "intervalStatus", nullable = false)
     private IntervalStatus intervalStatus;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -37,5 +42,5 @@ public class DateInterval {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cottage_id")
     @JsonBackReference
-    private User cottage;
+    private Cottage cottage;
 }

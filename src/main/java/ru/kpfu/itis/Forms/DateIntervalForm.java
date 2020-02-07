@@ -16,5 +16,6 @@ public class DateIntervalForm {
 
     private Date startOfInterval;
     private Date endOfInterval;
+    private Long CottageID;
 
 }

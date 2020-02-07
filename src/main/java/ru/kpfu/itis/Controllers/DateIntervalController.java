@@ -25,8 +25,9 @@ public class DateIntervalController {
     private UserService userService;
 
     @GetMapping("/dates")
-    public List<DateInterval> getDateIntervals(){
-        return dateIntervalService.findAll();
+    public ResponseEntity<List<DateInterval>> getDateIntervals()
+    {
+        return ResponseEntity.ok(dateIntervalService.findAll());
     }
 
     @PutMapping("/date/add")
@@ -35,8 +36,12 @@ public class DateIntervalController {
             @RequestBody DateIntervalForm dateIntervalForm){
         TokenAuthentication authentication = (TokenAuthentication) SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails =  (UserDetails)authentication.getDetails();
-        User user = userService.findOneByLogin(userDetails.getUsername());
-        dateIntervalService.addDateInterval(user, dateIntervalForm);
+        dateIntervalService.addDateInterval(userDetails.getUsername(), dateIntervalForm);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<List<DateInterval>> getByAuthor(){
+        return null;
     }
 }
