@@ -81,6 +81,12 @@ public class DateIntervalServiceImpl implements DateIntervalService {
         dateIntervalsRepository.delete(id);
     }
 
+    @Override
+    public List<DateInterval> findAllByUser(String userName) {
+        User user = userService.findOneByLogin(userName);
+        return dateIntervalsRepository.findAllByOwner(user);
+    }
+
 
     private boolean checkIntervalForFree(DateInterval dateInterval) {
         List<DateInterval> dateIntervalList = dateIntervalsRepository.findAll();

@@ -14,6 +14,7 @@ import ru.kpfu.itis.Services.UserService;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/v1/users")
 public class UserController {
     @Autowired
     private UserRepository userRepository;
@@ -23,18 +24,18 @@ public class UserController {
 
 
 
-    @GetMapping("/users")
+    @GetMapping
     public List<User> getUsers(){
         TokenAuthentication authentication = (TokenAuthentication) SecurityContextHolder.getContext().getAuthentication();
         return userRepository.findAll();
     }
 
-    @GetMapping("/user/{user-id}")
-    public User getUser(@PathVariable("user-id") Long user_id){
-       return userRepository.findOne(user_id);
+    @GetMapping("/{user-id}")
+    public ResponseEntity<User> getUser(@PathVariable("user-id") Long user_id){
+       return ResponseEntity.ok(userRepository.findOne(user_id));
     }
 
-    @PostMapping("/user/add")
+    @PostMapping("/add")
     public ResponseEntity<Object> addUser(@RequestBody UserForm userForm){
         userService.signUp(userForm);
         return ResponseEntity.ok().build();
