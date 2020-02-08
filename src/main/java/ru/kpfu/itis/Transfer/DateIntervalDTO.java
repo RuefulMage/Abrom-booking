@@ -17,18 +17,18 @@ public class DateIntervalDTO {
 
     @Future
     @NotNull
-    private Date start;
+    private Date startOfInterval;
 
     @Future
     @NotNull
-    private Date end;
+    private Date endOfInterval;
 
     @NotNull
     private Long cottageID;
 
-    private String status;
+    private String intervalStatus;
 
-    private UserDTO user;
+    private UserDTO owner;
 
     private Long id;
 }
