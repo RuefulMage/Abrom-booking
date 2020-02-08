@@ -1,6 +1,7 @@
 package ru.kpfu.itis.Forms;
 
 import lombok.*;
+import org.hibernate.validator.constraints.Email;
 
 @Getter
 @Setter
@@ -12,5 +13,8 @@ public class UserForm {
     private String lastName;
     private String login;
     private String password;
+
+    @Email
+    private String email;
 
 }

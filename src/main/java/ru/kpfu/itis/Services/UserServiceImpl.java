@@ -36,6 +36,7 @@ public class UserServiceImpl implements UserService {
                 .hashPassword(hashPassword)
                 .role(Role.USER)
                 .state(State.ACTIVE)
+                .email(userForm.getEmail())
                 .build();
 
 

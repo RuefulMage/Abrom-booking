@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.kpfu.itis.Forms.LoginForm;
-import ru.kpfu.itis.Models.Token;
 import ru.kpfu.itis.Services.LoginService;
 import ru.kpfu.itis.Transfer.TokenDTO;
 
