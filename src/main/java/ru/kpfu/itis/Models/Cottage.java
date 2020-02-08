@@ -14,7 +14,7 @@ import java.util.List;
 @Builder
 @ToString(exclude = {"dateIntervals"})
 @Entity
-@Table(name = "cottage")
+@Table
 public class Cottage {
 
     @Id

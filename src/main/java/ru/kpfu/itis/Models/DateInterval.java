@@ -15,7 +15,7 @@ import java.util.Date;
 @ToString
 @Builder
 @Entity
-@Table(name = "date_interval")
+@Table
 public class DateInterval {
 
     @Id
