@@ -13,9 +13,12 @@ import ru.kpfu.itis.Models.User;
 import ru.kpfu.itis.Security.Token.TokenAuthentication;
 import ru.kpfu.itis.Services.DateIntervalService;
 import ru.kpfu.itis.Services.UserService;
+import ru.kpfu.itis.Transfer.DateIntervalDTO;
+import ru.kpfu.itis.Utils.DateIntervalsMapper;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/date-intervals")
@@ -23,11 +26,13 @@ public class DateIntervalController {
 
     private DateIntervalService dateIntervalService;
     private UserService userService;
+    private DateIntervalsMapper dateIntervalsMapper;
 
     @Autowired
-    public DateIntervalController(DateIntervalService dateIntervalService, UserService userService) {
+    public DateIntervalController(DateIntervalService dateIntervalService, UserService userService, DateIntervalsMapper dateIntervalsMapper) {
         this.dateIntervalService = dateIntervalService;
         this.userService = userService;
+        this.dateIntervalsMapper = dateIntervalsMapper;
     }
 
     @PutMapping("/add")
@@ -41,16 +46,24 @@ public class DateIntervalController {
     }
 
     @GetMapping
-    public ResponseEntity<List<DateInterval>> getDateIntervals()
+    public ResponseEntity<List<DateIntervalDTO>> getDateIntervals()
     {
-        return ResponseEntity.ok(dateIntervalService.findAll());
+        List<DateInterval> dateIntervalList = dateIntervalService.findAll();
+        List<DateIntervalDTO> dtos = dateIntervalList
+                .stream().map(dateInterval -> dateIntervalsMapper.toDto(dateInterval))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(dtos);
     }
 
     @GetMapping("/my-dates")
-    public ResponseEntity<List<DateInterval>> getByCurrentUser(){
+    public ResponseEntity<List<DateIntervalDTO>> getByCurrentUser(){
         TokenAuthentication authentication = (TokenAuthentication) SecurityContextHolder
                 .getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getDetails();
-        return ResponseEntity.ok(dateIntervalService.findAllByUser(userDetails.getUsername()));
+        List<DateInterval> dateIntervalList = dateIntervalService.findAllByUser(userDetails.getUsername());
+        List<DateIntervalDTO> dtos = dateIntervalList
+                .stream().map(dateInterval -> dateIntervalsMapper.toDto(dateInterval))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(dtos);
     }
 }

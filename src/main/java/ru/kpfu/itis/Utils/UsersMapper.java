@@ -2,9 +2,11 @@ package ru.kpfu.itis.Utils;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.kpfu.itis.Models.User;
 import ru.kpfu.itis.Transfer.UserDTO;
 
+@Component
 public class UsersMapper implements DTOMapper<User, UserDTO> {
     private ModelMapper modelMapper;
 
