@@ -1,6 +1,7 @@
 package ru.kpfu.itis.Forms;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import ru.kpfu.itis.Transfer.UserDTO;
 
@@ -24,8 +25,7 @@ public class DateIntervalForm {
     @NotNull
     private Date endOfInterval;
 
-
-    private Long CottageID;
+    private Long cottageID;
 
     private String status;
 
@@ -36,6 +36,6 @@ public class DateIntervalForm {
     public DateIntervalForm(Date startOfInterval, Date endOfInterval, Long cottageID) {
         this.startOfInterval = startOfInterval;
         this.endOfInterval = endOfInterval;
-        CottageID = cottageID;
+        this.cottageID = cottageID;
     }
 }

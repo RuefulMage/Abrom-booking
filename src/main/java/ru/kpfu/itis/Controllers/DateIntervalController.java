@@ -56,14 +56,24 @@ public class DateIntervalController {
     }
 
     @GetMapping("/my-dates")
-    public ResponseEntity<List<DateIntervalDTO>> getByCurrentUser(){
+//    public ResponseEntity<List<DateIntervalDTO>> getByCurrentUser(){
+//        TokenAuthentication authentication = (TokenAuthentication) SecurityContextHolder
+//                .getContext().getAuthentication();
+//        UserDetails userDetails = (UserDetails) authentication.getDetails();
+//        List<DateInterval> dateIntervalList = dateIntervalService.findAllByUser(userDetails.getUsername());
+//        List<DateIntervalDTO> dtos = dateIntervalList
+//                .stream().map(dateInterval -> dateIntervalsMapper.toDto(dateInterval))
+//                .collect(Collectors.toList());
+//        return ResponseEntity.ok(dtos);
+//    }
+    public ResponseEntity<List<DateInterval>> get(){
         TokenAuthentication authentication = (TokenAuthentication) SecurityContextHolder
                 .getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getDetails();
         List<DateInterval> dateIntervalList = dateIntervalService.findAllByUser(userDetails.getUsername());
-        List<DateIntervalDTO> dtos = dateIntervalList
-                .stream().map(dateInterval -> dateIntervalsMapper.toDto(dateInterval))
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(dtos);
+//        List<DateIntervalDTO> dtos = dateIntervalList
+//                .stream().map(dateInterval -> dateIntervalsMapper.toDto(dateInterval))
+//                .collect(Collectors.toList());
+        return ResponseEntity.ok(dateIntervalList);
     }
 }
