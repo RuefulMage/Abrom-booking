@@ -18,11 +18,15 @@ import java.util.List;
 
 @RestController
 public class DateIntervalController {
-    @Autowired
+
     private DateIntervalService dateIntervalService;
+    private UserService userService;
 
     @Autowired
-    private UserService userService;
+    public DateIntervalController(DateIntervalService dateIntervalService, UserService userService) {
+        this.dateIntervalService = dateIntervalService;
+        this.userService = userService;
+    }
 
     @GetMapping("/dates")
     public ResponseEntity<List<DateInterval>> getDateIntervals()

@@ -11,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
+@Builder
 @ToString(exclude = {"dateIntervals"})
 @Entity
 @Table(name = "cottage")
@@ -26,7 +27,7 @@ public class Cottage {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "cottage", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cottage", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<DateInterval> dateIntervals;
 }

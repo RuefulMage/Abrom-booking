@@ -17,14 +17,19 @@ import java.util.Optional;
 @Transactional
 @Service
 public class LoginServiceImpl implements LoginService {
-    @Autowired
+
     private TokensRepository tokensRepository;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
+    private UserRepository userRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    public LoginServiceImpl(TokensRepository tokensRepository,
+                            PasswordEncoder passwordEncoder,
+                            UserRepository userRepository) {
+        this.tokensRepository = tokensRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.userRepository = userRepository;
+    }
 
     @Override
     public TokenDTO login(LoginForm loginForm) {

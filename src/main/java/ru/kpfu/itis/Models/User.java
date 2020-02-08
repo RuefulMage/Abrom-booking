@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString(exclude = {"dateIntervals", "tokens"})
+@Builder
 @Entity
 @Table(name = "abrom_user")
 //TODO Сделать user подходящим для контекста
@@ -48,11 +49,11 @@ public class User {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<DateInterval> dateIntervals;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Token> tokens;
 }

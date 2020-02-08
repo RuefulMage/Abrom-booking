@@ -7,26 +7,38 @@ import ru.kpfu.itis.Models.Cottage;
 import ru.kpfu.itis.Models.DateInterval;
 import ru.kpfu.itis.Models.Enums.IntervalStatus;
 import ru.kpfu.itis.Models.User;
-import ru.kpfu.itis.Repositories.CottagesRepository;
 import ru.kpfu.itis.Repositories.DateIntervalsRepository;
-import ru.kpfu.itis.Repositories.UserRepository;
 
-import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
-@Transactional
 @Service
 public class DateIntervalServiceImpl implements DateIntervalService {
-    @Autowired
+
     private DateIntervalsRepository dateIntervalsRepository;
-
-    @Autowired
     private UserService userService;
-
-    @Autowired
     private CottageService cottageService;
 
+    @Autowired
+    public DateIntervalServiceImpl(DateIntervalsRepository dateIntervalsRepository,
+                                   UserService userService,
+                                   CottageService cottageService) {
+        this.dateIntervalsRepository = dateIntervalsRepository;
+        this.userService = userService;
+        this.cottageService = cottageService;
+    }
+
+    @Override
+    public DateInterval findByID(Long id) {
+        Optional<DateInterval> dateIntervalCandidate =  dateIntervalsRepository.findById(id);
+
+        if(dateIntervalCandidate.isPresent()){
+            return dateIntervalCandidate.get();
+        }else {
+            throw new IllegalArgumentException("Date interval not found");
+        }
+    }
 
     @Override
     public List<DateInterval> findAll() {
@@ -35,12 +47,8 @@ public class DateIntervalServiceImpl implements DateIntervalService {
 
     @Override
     public void addDateInterval(String userName, DateIntervalForm dateIntervalForm) {
-
-
         User user = userService.findOneByLogin(userName);
-
-        Cottage cottage = cottageService.getCottafeByID(dateIntervalForm.getCottageID());
-
+        Cottage cottage = cottageService.getCottageByID(dateIntervalForm.getCottageID());
         DateInterval dateInterval = DateInterval.builder()
                 .startOfInterval(dateIntervalForm.getStartOfInterval())
                 .endOfInterval(dateIntervalForm.getEndOfInterval())
@@ -53,11 +61,28 @@ public class DateIntervalServiceImpl implements DateIntervalService {
         }else{
             throw new IllegalArgumentException("Date interval is exists");
         }
-
     }
 
     @Override
-    public boolean checkIntervalForFree(DateInterval dateInterval) {
+    public List<DateInterval> findAllByCottage(Cottage cottage) {
+        return dateIntervalsRepository.findAllByCottage(cottage);
+    }
+
+    @Override
+    public void updateStatus(Long id, IntervalStatus status) {
+        DateInterval dateInterval = findByID(id);
+        dateInterval.setIntervalStatus(status);
+        dateIntervalsRepository.save(dateInterval);
+    }
+
+    @Override
+    public void delete(Long id) {
+        findByID(id);
+        dateIntervalsRepository.delete(id);
+    }
+
+
+    private boolean checkIntervalForFree(DateInterval dateInterval) {
         List<DateInterval> dateIntervalList = dateIntervalsRepository.findAll();
         for (DateInterval dateIntervalListItem:
              dateIntervalList) {
@@ -71,12 +96,10 @@ public class DateIntervalServiceImpl implements DateIntervalService {
         return true;
     }
 
-    @Override
-    public List<DateInterval> findAllByCottage(Cottage cottage) {
-        return null;
-    }
 
-    boolean isWithinRange(Date testDate, Date startDate, Date endDate) {
+
+
+    private boolean isWithinRange(Date testDate, Date startDate, Date endDate) {
         System.out.println(!(testDate.before(startDate) || testDate.after(endDate)));
         return !(testDate.before(startDate) || testDate.after(endDate));
     }
