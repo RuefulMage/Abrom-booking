@@ -3,6 +3,8 @@ package ru.kpfu.itis.Controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -24,12 +26,15 @@ public class DateIntervalController {
     private DateIntervalService dateIntervalService;
     private UserService userService;
     private DateIntervalsMapper dateIntervalsMapper;
+    public JavaMailSender emailSender;
 
-    @Autowired
-    public DateIntervalController(DateIntervalService dateIntervalService, UserService userService, DateIntervalsMapper dateIntervalsMapper) {
+    public DateIntervalController(DateIntervalService dateIntervalService,
+                                  UserService userService, DateIntervalsMapper dateIntervalsMapper,
+                                  JavaMailSender emailSender) {
         this.dateIntervalService = dateIntervalService;
         this.userService = userService;
         this.dateIntervalsMapper = dateIntervalsMapper;
+        this.emailSender = emailSender;
     }
 
     @PostMapping("/add")
@@ -38,8 +43,11 @@ public class DateIntervalController {
              @RequestBody @Valid DateIntervalDTO dateIntervalDTO){
         TokenAuthentication authentication = (TokenAuthentication) SecurityContextHolder
                 .getContext().getAuthentication();
-        UserDetails userDetails =  (UserDetails)authentication.getDetails();
+        UserDetails userDetails = (UserDetails)authentication.getDetails();
         dateIntervalService.addDateInterval(userDetails.getUsername(), dateIntervalDTO);
+
+        String email = userService.findOneByLogin(userDetails.getUsername()).getEmail();
+        sendMail(email);
     }
 
     @GetMapping
@@ -62,5 +70,14 @@ public class DateIntervalController {
                 .stream().map(dateInterval -> dateIntervalsMapper.toDto(dateInterval))
                 .collect(Collectors.toList());
         return ResponseEntity.ok(dtos);
+    }
+
+    public void sendMail(String email){
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(email);
+        message.setSubject("New request");
+        message.setText("Hello, you have a new rental request from");
+        this.emailSender.send(message);
+
     }
 }
