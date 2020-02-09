@@ -1,5 +1,6 @@
 package ru.kpfu.itis.Services;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.kpfu.itis.Models.Cottage;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class DateIntervalServiceImpl implements DateIntervalService {
 
     private DateIntervalsRepository dateIntervalsRepository;
@@ -90,6 +92,7 @@ public class DateIntervalServiceImpl implements DateIntervalService {
     @Override
     public List<DateInterval> findAllByStatus(IntervalStatus status) {
         List<DateInterval> dateIntervalList = dateIntervalsRepository.findAllByIntervalStatus(status);
+        log.info("Dates", dateIntervalList);
         if(dateIntervalList.isEmpty()){
             throw new IllegalArgumentException("date not found");
         }
