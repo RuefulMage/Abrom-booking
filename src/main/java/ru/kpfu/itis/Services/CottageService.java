@@ -1,12 +1,12 @@
 package ru.kpfu.itis.Services;
 
-import ru.kpfu.itis.Forms.CottageForm;
+import ru.kpfu.itis.Transfer.CottageDTO;
 import ru.kpfu.itis.Models.Cottage;
 
 public interface CottageService {
-    void update(CottageForm cottageForm, Long id);
+    void update(CottageDTO cottageDTO, Long id);
 
-    void addCottage(String userName, CottageForm cottageForm);
+    void addCottage(String userName, CottageDTO cottageDTO);
 
     Cottage getCottageByID(Long id);
 

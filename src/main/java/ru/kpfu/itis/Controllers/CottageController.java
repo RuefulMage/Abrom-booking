@@ -3,11 +3,9 @@ package ru.kpfu.itis.Controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.kpfu.itis.Forms.CottageForm;
+import ru.kpfu.itis.Transfer.CottageDTO;
 import ru.kpfu.itis.Models.Cottage;
 import ru.kpfu.itis.Services.CottageService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/cottages")
@@ -21,8 +19,8 @@ public class CottageController {
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity update(@PathVariable("id") Long id, CottageForm cottageForm){
-        cottageService.update(cottageForm, id);
+    public ResponseEntity update(@PathVariable("id") Long id, CottageDTO cottageDTO){
+        cottageService.update(cottageDTO, id);
         return ResponseEntity.ok().build();
     }
 

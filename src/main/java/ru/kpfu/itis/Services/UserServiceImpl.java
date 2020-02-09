@@ -3,7 +3,7 @@ package ru.kpfu.itis.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.kpfu.itis.Forms.UserForm;
+import ru.kpfu.itis.Forms.RegistrationForm;
 import ru.kpfu.itis.Models.Enums.Role;
 import ru.kpfu.itis.Models.Enums.State;
 import ru.kpfu.itis.Models.User;
@@ -26,17 +26,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void signUp(UserForm userForm) {
-        String hashPassword = passwordEncoder.encode(userForm.getPassword());
+    public void signUp(RegistrationForm registrationForm) {
+        String hashPassword = passwordEncoder.encode(registrationForm.getPassword());
 
         User user = User.builder()
-                .firstName(userForm.getFirstName())
-                .lastName(userForm.getLastName())
-                .login(userForm.getLogin())
+                .firstName(registrationForm.getFirstName())
+                .lastName(registrationForm.getLastName())
+                .login(registrationForm.getLogin())
                 .hashPassword(hashPassword)
                 .role(Role.USER)
                 .state(State.ACTIVE)
-                .email(userForm.getEmail())
+                .email(registrationForm.getEmail())
                 .build();
 
 

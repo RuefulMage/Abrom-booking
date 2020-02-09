@@ -3,13 +3,10 @@ package ru.kpfu.itis.Controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import ru.kpfu.itis.Forms.UserForm;
+import ru.kpfu.itis.Forms.RegistrationForm;
 import ru.kpfu.itis.Models.User;
 import ru.kpfu.itis.Repositories.UserRepository;
-import ru.kpfu.itis.Security.Token.TokenAuthentication;
 import ru.kpfu.itis.Services.UserService;
 import ru.kpfu.itis.Transfer.UserDTO;
 import ru.kpfu.itis.Utils.UsersMapper;
@@ -47,7 +44,7 @@ public class UserController {
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addUser(@RequestBody UserForm userForm){
-        userService.signUp(userForm);
+    public void addUser(@RequestBody RegistrationForm registrationForm){
+        userService.signUp(registrationForm);
     }
 }

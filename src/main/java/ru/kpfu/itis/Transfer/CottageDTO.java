@@ -1,4 +1,4 @@
-package ru.kpfu.itis.Forms;
+package ru.kpfu.itis.Transfer;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CottageForm {
+public class CottageDTO {
     private String description;
     private String address;
 }

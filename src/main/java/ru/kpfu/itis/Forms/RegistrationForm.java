@@ -10,7 +10,7 @@ import org.hibernate.validator.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserForm {
+public class RegistrationForm {
 
     private String password;
 

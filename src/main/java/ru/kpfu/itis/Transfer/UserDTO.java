@@ -12,7 +12,6 @@ import org.hibernate.validator.constraints.Email;
 @NoArgsConstructor
 @Builder
 public class UserDTO {
-
     @JsonProperty(value = "firstname")
     private String firstName;
 
