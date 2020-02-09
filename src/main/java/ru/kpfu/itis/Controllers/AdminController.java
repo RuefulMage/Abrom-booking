@@ -2,10 +2,9 @@ package ru.kpfu.itis.Controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.kpfu.itis.Models.DateInterval;
 import ru.kpfu.itis.Models.Enums.IntervalStatus;
 import ru.kpfu.itis.Services.DateIntervalService;
@@ -34,5 +33,17 @@ public class AdminController {
                 .stream().map(dateInterval -> dateIntervalsMapper.toDto(dateInterval))
                 .collect(Collectors.toList());
         return ResponseEntity.ok(dtos);
+    }
+
+    @PostMapping("/requests/{id}/accept")
+    @ResponseStatus(HttpStatus.OK)
+    public void accept(@PathVariable("id") Long id){
+        dateIntervalService.updateStatus(id, IntervalStatus.BOOKED);
+    }
+
+    @PostMapping("/requests/{id}/reject")
+    @ResponseStatus(HttpStatus.OK)
+    public void reject(@PathVariable("id") Long id){
+        dateIntervalService.updateStatus(id, IntervalStatus.DELETED);
     }
 }
