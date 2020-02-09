@@ -7,10 +7,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import ru.kpfu.itis.Forms.LoginForm;
+import ru.kpfu.itis.Models.Enums.Role;
 import ru.kpfu.itis.Security.Token.TokenAuthentication;
 import ru.kpfu.itis.Services.LoginService;
 import ru.kpfu.itis.Services.TokenService;
+import ru.kpfu.itis.Services.UserService;
 import ru.kpfu.itis.Transfer.TokenDTO;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -18,16 +23,23 @@ public class LoginController {
 
     private LoginService loginService;
     private TokenService tokenService;
+    private UserService userService;
 
     @Autowired
-    public LoginController(LoginService loginService, TokenService tokenService) {
+    public LoginController(LoginService loginService, TokenService tokenService, UserService userService) {
         this.loginService = loginService;
         this.tokenService = tokenService;
+        this.userService = userService;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<TokenDTO> login(@RequestBody LoginForm loginForm){
-        return ResponseEntity.ok(loginService.login(loginForm));
+    public ResponseEntity<Map> login(@RequestBody LoginForm loginForm){
+        TokenDTO tokenDTO = loginService.login(loginForm);
+        Role role = userService.findOneByLogin(loginForm.getLogin()).getRole();
+        Map map = new HashMap();
+        map.put("value", tokenDTO.getToken());
+        map.put("role", role);
+        return ResponseEntity.ok(map);
     }
 
     @PostMapping("/logout")

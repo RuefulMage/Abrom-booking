@@ -72,6 +72,7 @@ public class DateIntervalController {
         return ResponseEntity.ok(dtos);
     }
 
+    //TODO сделать рассылку админам
     public void sendMail(String email){
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(email);
