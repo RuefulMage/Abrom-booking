@@ -36,7 +36,7 @@ public class App extends WebMvcConfigurerAdapter{
         mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(587);
 
-        mailSender.setUsername("feonorabd2000@gmail.");
+        mailSender.setUsername("feonorabd2000@gmail.com");
         mailSender.setPassword("Rammstein123");
 
         Properties props = mailSender.getJavaMailProperties();
