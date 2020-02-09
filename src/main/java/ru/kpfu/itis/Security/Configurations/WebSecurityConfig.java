@@ -38,8 +38,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/v1/login").permitAll()
                 .antMatchers("/api/v1/users/add").permitAll()
                 .antMatchers("/api/v1/users").permitAll()
-                .antMatchers("/api/v1/admin/**").hasRole(Role.ADMIN.name())
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+                .antMatchers("/api/v1/admin/**").hasRole(Role.ADMIN.name());
         http.csrf().disable();
     }
 
