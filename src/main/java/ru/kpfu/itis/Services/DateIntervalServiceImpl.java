@@ -89,7 +89,11 @@ public class DateIntervalServiceImpl implements DateIntervalService {
 
     @Override
     public List<DateInterval> findAllByStatus(IntervalStatus status) {
-        return dateIntervalsRepository.findAllByIntervalStatus(status);
+        List<DateInterval> dateIntervalList = dateIntervalsRepository.findAllByIntervalStatus(status);
+        if(dateIntervalList.isEmpty()){
+            throw new IllegalArgumentException("date not found");
+        }
+        return null;
     }
 
 
