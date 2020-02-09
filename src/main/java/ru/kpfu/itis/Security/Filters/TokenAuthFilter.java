@@ -39,11 +39,7 @@ public class TokenAuthFilter implements Filter {
         TokenAuthentication tokenAuthentication = new TokenAuthentication(token);
         if(token == null){
             tokenAuthentication.setAuthenticated(false);
-            log.error("token is not found");
-            log.error("token is not found");
-            log.error("token is not found");
-            log.error("token is not found");
-            log.error("token is not found");
+            log.info("token is not found");
         }else{
 //            SecurityContextHolder.getContext().setAuthentication(tokenAuthentication);
 
