@@ -21,6 +21,11 @@ public class AdminController {
     private DateIntervalService dateIntervalService;
     private DateIntervalsMapper dateIntervalsMapper;
 
+    @Autowired
+    public AdminController(DateIntervalService dateIntervalService, DateIntervalsMapper dateIntervalsMapper) {
+        this.dateIntervalService = dateIntervalService;
+        this.dateIntervalsMapper = dateIntervalsMapper;
+    }
 
     @GetMapping("/requests")
     public ResponseEntity<List<DateIntervalDTO>> getAllRequests(){

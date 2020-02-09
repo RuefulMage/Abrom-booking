@@ -18,9 +18,6 @@ import java.util.List;
 @Entity
 @Table(name = "abrom_user")
 //TODO Сделать user подходящим для контекста
-//TODO Добавить валидацию
-//TODO Добавить Email
-
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
