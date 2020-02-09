@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import ru.kpfu.itis.Models.Cottage;
 import ru.kpfu.itis.Models.DateInterval;
+import ru.kpfu.itis.Models.Enums.IntervalStatus;
 import ru.kpfu.itis.Models.User;
 
 import java.util.List;
@@ -17,5 +18,7 @@ public interface DateIntervalsRepository extends JpaRepository<DateInterval, Lon
     Optional<DateInterval> findById(Long id);
 
     List<DateInterval> findAllByOwner(User user);
+
+    List<DateInterval> findAllByIntervalStatus(IntervalStatus status);
 
 }

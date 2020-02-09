@@ -87,6 +87,11 @@ public class DateIntervalServiceImpl implements DateIntervalService {
         return dateIntervalsRepository.findAllByOwner(user);
     }
 
+    @Override
+    public List<DateInterval> findAllByStatus(IntervalStatus status) {
+        return dateIntervalsRepository.findAllByIntervalStatus(status);
+    }
+
 
     private boolean checkIntervalForFree(DateInterval dateInterval) {
         List<DateInterval> dateIntervalList = dateIntervalsRepository.findAll();

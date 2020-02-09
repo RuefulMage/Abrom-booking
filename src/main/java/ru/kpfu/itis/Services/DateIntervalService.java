@@ -21,4 +21,6 @@ public interface DateIntervalService {
     void delete(Long id);
 
     List<DateInterval> findAllByUser(String userName);
+
+    List<DateInterval> findAllByStatus(IntervalStatus status);
 }
