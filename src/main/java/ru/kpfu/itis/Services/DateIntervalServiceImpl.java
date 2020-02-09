@@ -96,7 +96,7 @@ public class DateIntervalServiceImpl implements DateIntervalService {
         if(dateIntervalList.isEmpty()){
             throw new IllegalArgumentException("date not found");
         }
-        return null;
+        return dateIntervalList;
     }
 
 
