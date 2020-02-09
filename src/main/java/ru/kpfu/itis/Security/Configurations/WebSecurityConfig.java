@@ -5,6 +5,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import ru.kpfu.itis.Security.Filters.TokenAuthFilter;
 import ru.kpfu.itis.Security.Provider.TokenAuthenticationProvider;
@@ -21,6 +22,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .addFilterBefore(tokenAuthFilter, BasicAuthenticationFilter.class)
                 .antMatcher("/**")
                 .authenticationProvider(tokenAuthenticationProvider)
