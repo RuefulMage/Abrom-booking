@@ -11,7 +11,6 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import ru.kpfu.itis.Models.Enums.Role;
 import ru.kpfu.itis.Security.Filters.TokenAuthFilter;
 import ru.kpfu.itis.Security.Provider.TokenAuthenticationProvider;
 
@@ -35,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatcher("/**")
                 .authenticationProvider(tokenAuthenticationProvider)
                 .authorizeRequests()
-//                .antMatchers("/api/v1/admin/**").hasRole(Role.ADMIN.name())
+                .antMatchers("/api/v1/admin/**").hasRole("ADMIN")
                 .antMatchers("/api/v1/login").permitAll()
                 .antMatchers("/api/v1/users/add").permitAll()
                 .antMatchers("/api/v1/users").permitAll()
