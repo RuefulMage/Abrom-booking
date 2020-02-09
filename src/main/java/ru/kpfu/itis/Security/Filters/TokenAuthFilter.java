@@ -1,5 +1,6 @@
 package ru.kpfu.itis.Security.Filters;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 @Component
+@Slf4j
 public class TokenAuthFilter implements Filter {
 
     @Autowired
@@ -32,14 +34,16 @@ public class TokenAuthFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
-
-//        String token = request.getParameter("token");
-
         String token = request.getHeader("Authorization");
 
         TokenAuthentication tokenAuthentication = new TokenAuthentication(token);
         if(token == null){
             tokenAuthentication.setAuthenticated(false);
+            log.error("token is not found");
+            log.error("token is not found");
+            log.error("token is not found");
+            log.error("token is not found");
+            log.error("token is not found");
         }else{
 //            SecurityContextHolder.getContext().setAuthentication(tokenAuthentication);
 

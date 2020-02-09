@@ -2,12 +2,12 @@ package ru.kpfu.itis.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.kpfu.itis.Forms.DateIntervalForm;
 import ru.kpfu.itis.Models.Cottage;
 import ru.kpfu.itis.Models.DateInterval;
 import ru.kpfu.itis.Models.Enums.IntervalStatus;
 import ru.kpfu.itis.Models.User;
 import ru.kpfu.itis.Repositories.DateIntervalsRepository;
+import ru.kpfu.itis.Transfer.DateIntervalDTO;
 
 import java.util.Date;
 import java.util.List;
@@ -46,12 +46,12 @@ public class DateIntervalServiceImpl implements DateIntervalService {
     }
 
     @Override
-    public void addDateInterval(String userName, DateIntervalForm dateIntervalForm) {
+    public void addDateInterval(String userName, DateIntervalDTO dateIntervalDTO) {
         User user = userService.findOneByLogin(userName);
-        Cottage cottage = cottageService.getCottageByID(dateIntervalForm.getCottageID());
+        Cottage cottage = cottageService.getCottageByID(dateIntervalDTO.getCottageID());
         DateInterval dateInterval = DateInterval.builder()
-                .startOfInterval(dateIntervalForm.getStartOfInterval())
-                .endOfInterval(dateIntervalForm.getEndOfInterval())
+                .startOfInterval(dateIntervalDTO.getStartOfInterval())
+                .endOfInterval(dateIntervalDTO.getEndOfInterval())
                 .intervalStatus(IntervalStatus.PENDING)
                 .owner(user)
                 .cottage(cottage)

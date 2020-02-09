@@ -27,8 +27,6 @@ public class DateIntervalDTO {
     private Long cottageID;
 
     private String intervalStatus;
-
     private UserDTO owner;
-
     private Long id;
 }

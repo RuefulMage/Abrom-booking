@@ -3,13 +3,10 @@ package ru.kpfu.itis.Controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import ru.kpfu.itis.Forms.DateIntervalForm;
 import ru.kpfu.itis.Models.DateInterval;
-import ru.kpfu.itis.Models.User;
 import ru.kpfu.itis.Security.Token.TokenAuthentication;
 import ru.kpfu.itis.Services.DateIntervalService;
 import ru.kpfu.itis.Services.UserService;
@@ -38,11 +35,11 @@ public class DateIntervalController {
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
     public void addDateInterval(
-             @RequestBody @Valid DateIntervalForm dateIntervalForm){
+             @RequestBody @Valid DateIntervalDTO dateIntervalDTO){
         TokenAuthentication authentication = (TokenAuthentication) SecurityContextHolder
                 .getContext().getAuthentication();
         UserDetails userDetails =  (UserDetails)authentication.getDetails();
-        dateIntervalService.addDateInterval(userDetails.getUsername(), dateIntervalForm);
+        dateIntervalService.addDateInterval(userDetails.getUsername(), dateIntervalDTO);
     }
 
     @GetMapping

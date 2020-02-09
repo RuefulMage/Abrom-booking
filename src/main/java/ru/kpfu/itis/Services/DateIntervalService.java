@@ -1,9 +1,9 @@
 package ru.kpfu.itis.Services;
 
-import ru.kpfu.itis.Forms.DateIntervalForm;
 import ru.kpfu.itis.Models.Cottage;
 import ru.kpfu.itis.Models.DateInterval;
 import ru.kpfu.itis.Models.Enums.IntervalStatus;
+import ru.kpfu.itis.Transfer.DateIntervalDTO;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public interface DateIntervalService {
 
     List<DateInterval> findAll();
 
-    void addDateInterval(String userName, DateIntervalForm dateIntervalForm);
+    void addDateInterval(String userName, DateIntervalDTO dateIntervalDTO);
 
     List<DateInterval> findAllByCottage(Cottage cottage);
 
