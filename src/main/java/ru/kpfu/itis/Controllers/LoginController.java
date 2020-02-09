@@ -38,7 +38,9 @@ public class LoginController {
         Role role = userService.findOneByLogin(loginForm.getLogin()).getRole();
         Map map = new HashMap();
         map.put("value", tokenDTO.getToken());
-        map.put("role", role);
+        if(role.name().equals("ADMIN")) {
+            map.put("role", role);
+        }
         return ResponseEntity.ok(map);
     }
 

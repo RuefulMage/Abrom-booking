@@ -35,11 +35,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatcher("/**")
                 .authenticationProvider(tokenAuthenticationProvider)
                 .authorizeRequests()
+//                .antMatchers("/api/v1/admin/**").hasRole(Role.ADMIN.name())
                 .antMatchers("/api/v1/login").permitAll()
                 .antMatchers("/api/v1/users/add").permitAll()
                 .antMatchers("/api/v1/users").permitAll()
-                .anyRequest().authenticated()
-                .antMatchers("/api/v1/admin/**").hasRole(Role.ADMIN.name());
+                .anyRequest().authenticated();
         http.csrf().disable();
     }
 
