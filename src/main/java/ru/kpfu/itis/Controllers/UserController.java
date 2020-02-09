@@ -34,7 +34,6 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<List<UserDTO>> getUsers(){
-//        TokenAuthentication authentication = (TokenAuthentication) SecurityContextHolder.getContext().getAuthentication();
         List<User> users = userRepository.findAll();
         List<UserDTO> dtos = users.stream().map(user -> usersMapper.toDto(user))
                 .collect(Collectors.toList());

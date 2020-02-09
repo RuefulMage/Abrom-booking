@@ -66,14 +66,4 @@ public class DateIntervalController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(dtos);
     }
-//    public ResponseEntity<List<DateInterval>> get(){
-//        TokenAuthentication authentication = (TokenAuthentication) SecurityContextHolder
-//                .getContext().getAuthentication();
-//        UserDetails userDetails = (UserDetails) authentication.getDetails();
-//        List<DateInterval> dateIntervalList = dateIntervalService.findAllByUser(userDetails.getUsername());
-////        List<DateIntervalDTO> dtos = dateIntervalList
-////                .stream().map(dateInterval -> dateIntervalsMapper.toDto(dateInterval))
-////                .collect(Collectors.toList());
-//        return ResponseEntity.ok(dateIntervalList);
-//    }
 }
