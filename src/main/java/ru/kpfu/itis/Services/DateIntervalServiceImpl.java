@@ -81,7 +81,11 @@ public class DateIntervalServiceImpl implements DateIntervalService {
 
     @Override
     public List<DateInterval> findAllByCottage(Cottage cottage) {
-        return dateIntervalsRepository.findAllByCottage(cottage);
+        List<DateInterval> dateIntervalList = dateIntervalsRepository.findAllByCottage(cottage);
+        if(dateIntervalList.isEmpty()){
+            throw new NotFoundException("Date intervals");
+        }
+        return dateIntervalList;
     }
 
     @Override
@@ -102,7 +106,11 @@ public class DateIntervalServiceImpl implements DateIntervalService {
     @Override
     public List<DateInterval> findAllByUser(String userName) {
         User user = userService.findOneByLogin(userName);
-        return dateIntervalsRepository.findAllByOwner(user);
+        List<DateInterval> dateIntervalList = dateIntervalsRepository.findAllByOwner(user);
+        if(dateIntervalList.isEmpty()){
+            throw new NotFoundException("Date intervals");
+        }
+        return dateIntervalList;
     }
 
     @Override
