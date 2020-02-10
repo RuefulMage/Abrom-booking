@@ -22,4 +22,6 @@ public interface DateIntervalsRepository extends JpaRepository<DateInterval, Lon
     List<DateInterval> findAllByIntervalStatus(IntervalStatus status);
 
     List<DateInterval> findAllByCottage_Id(Long id);
+
+    List<DateInterval> findAllByOwnerAndCottage_Id(User user, Long id);
 }

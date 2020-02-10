@@ -150,6 +150,19 @@ public class DateIntervalServiceImpl implements DateIntervalService {
         return list;
     }
 
+    @Override
+    public List<DateInterval> findAllByUserAndCottage(String username, Long id) {
+        User user = userService.findOneByLogin(username);
+        List<DateInterval> dateIntervalList = dateIntervalsRepository.findAllByOwnerAndCottage_Id(user, id);
+        List<DateInterval> list = dateIntervalList.stream()
+                .filter(dateInterval -> !(dateInterval.getIntervalStatus().equals(IntervalStatus.DELETED)))
+                .collect(Collectors.toList());
+        if(list.isEmpty()){
+            throw new NotFoundException("Date");
+        }
+        return list;
+    }
+
 
     private boolean checkIntervalForFree(DateInterval dateInterval) {
         List<DateInterval> dateIntervalList = findAllExcludeDeleted();
@@ -157,6 +170,9 @@ public class DateIntervalServiceImpl implements DateIntervalService {
              dateIntervalList) {
             Date startDate = dateIntervalListItem.getStartOfInterval();
             Date endDate = dateIntervalListItem.getEndOfInterval();
+            if(!dateInterval.getCottage().equals(dateIntervalListItem.getCottage())){
+                continue;
+            }
             if(isWithinRange(dateInterval.getStartOfInterval(),startDate, endDate)
                     || isWithinRange(dateInterval.getEndOfInterval(),startDate, endDate)
                     || isWithinRange(startDate, dateInterval.getStartOfInterval(), dateInterval.getEndOfInterval())

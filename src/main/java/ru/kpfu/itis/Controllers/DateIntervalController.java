@@ -103,4 +103,16 @@ public class DateIntervalController {
         return ResponseEntity.ok(dtos);
     }
 
+    @GetMapping("/my-dates/{cottage-id}")
+    public ResponseEntity<List<DateIntervalDTO>> getByCurrentUserAndCottage(@PathVariable("cottage-id") Long id){
+        TokenAuthentication authentication = (TokenAuthentication) SecurityContextHolder
+                .getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getDetails();
+        List<DateInterval> dateIntervalList = dateIntervalService.findAllByUserAndCottage(userDetails.getUsername(), id);
+        List<DateIntervalDTO> dtos = dateIntervalList
+                .stream().map(dateInterval -> dateIntervalsMapper.toDto(dateInterval))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(dtos);
+    }
+
 }
