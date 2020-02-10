@@ -35,6 +35,16 @@ public class AdminController {
         return ResponseEntity.ok(dtos);
     }
 
+    @GetMapping("/booked")
+    public ResponseEntity<List<DateIntervalDTO>> getAllBookedIntervals(){
+        List<DateInterval> dateIntervalList = dateIntervalService.findAllByStatus(IntervalStatus.BOOKED);
+        List<DateIntervalDTO> dtos = dateIntervalList
+                .stream().map(dateInterval -> dateIntervalsMapper.toDto(dateInterval))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(dtos);
+    }
+
+
     @PostMapping("/requests/{id}/accept")
     @ResponseStatus(HttpStatus.OK)
     public void accept(@PathVariable("id") Long id){
