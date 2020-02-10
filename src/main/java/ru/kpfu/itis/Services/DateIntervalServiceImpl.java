@@ -131,7 +131,9 @@ public class DateIntervalServiceImpl implements DateIntervalService {
             Date startDate = dateIntervalListItem.getStartOfInterval();
             Date endDate = dateIntervalListItem.getEndOfInterval();
             if(isWithinRange(dateInterval.getStartOfInterval(),startDate, endDate)
-                    || isWithinRange(dateInterval.getEndOfInterval(),startDate, endDate)){
+                    || isWithinRange(dateInterval.getEndOfInterval(),startDate, endDate)
+                    || isWithinRange(startDate, dateInterval.getStartOfInterval(), dateInterval.getEndOfInterval())
+                    || isWithinRange(endDate, dateInterval.getStartOfInterval(), dateInterval.getEndOfInterval())){
                 return false;
             }
         }
