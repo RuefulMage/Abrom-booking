@@ -44,13 +44,6 @@ public class LoginController {
         return ResponseEntity.ok(map);
     }
 
-//    @PostMapping("/login")
-//    public ResponseEntity<TokenDTO> login(@RequestBody LoginForm loginForm){
-//        TokenDTO tokenDTO = loginService.login(loginForm);
-//        Role role = userService.findOneByLogin(loginForm.getLogin()).getRole();
-//        return ResponseEntity.ok(tokenDTO);
-//    }
-
     @PostMapping("/logout")
     @ResponseStatus(HttpStatus.OK)
     public void logout(){

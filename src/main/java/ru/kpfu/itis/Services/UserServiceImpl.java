@@ -28,6 +28,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void signUp(RegistrationForm registrationForm) {
+        Optional<User> userCandidateLogin = userRepository.findOneByLogin(registrationForm.getLogin());
+        Optional<User> userCandidateEmail = userRepository.findByEmail(registrationForm.getEmail());
+        if(userCandidateEmail.isPresent() || userCandidateLogin.isPresent()){
+            throw new IllegalArgumentException("User is exists");
+        }
         String hashPassword = passwordEncoder.encode(registrationForm.getPassword());
 
         User user = User.builder()

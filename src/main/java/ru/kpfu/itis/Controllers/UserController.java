@@ -11,6 +11,7 @@ import ru.kpfu.itis.Services.UserService;
 import ru.kpfu.itis.Transfer.UserDTO;
 import ru.kpfu.itis.Utils.UsersMapper;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,7 +45,7 @@ public class UserController {
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addUser(@RequestBody RegistrationForm registrationForm){
+    public void addUser(@RequestBody @Valid RegistrationForm registrationForm){
         userService.signUp(registrationForm);
     }
 }
