@@ -32,16 +32,23 @@ public class LoginController {
         this.userService = userService;
     }
 
+//    @PostMapping("/login")
+//    public ResponseEntity<Map> login(@RequestBody LoginForm loginForm){
+//        TokenDTO tokenDTO = loginService.login(loginForm);
+//        Role role = userService.findOneByLogin(loginForm.getLogin()).getRole();
+//        Map map = new HashMap();
+//        map.put("value", tokenDTO.getToken());
+//        if(role.name().equals(Role.ROLE_ADMIN)) {
+//            map.put("role", role);
+//        }
+//        return ResponseEntity.ok(map);
+//    }
+
     @PostMapping("/login")
-    public ResponseEntity<Map> login(@RequestBody LoginForm loginForm){
+    public ResponseEntity<TokenDTO> login(@RequestBody LoginForm loginForm){
         TokenDTO tokenDTO = loginService.login(loginForm);
         Role role = userService.findOneByLogin(loginForm.getLogin()).getRole();
-        Map map = new HashMap();
-        map.put("value", tokenDTO.getToken());
-        if(role.name().equals(Role.ROLE_ADMIN)) {
-            map.put("role", role);
-        }
-        return ResponseEntity.ok(map);
+        return ResponseEntity.ok(tokenDTO);
     }
 
     @PostMapping("/logout")
