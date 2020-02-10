@@ -3,6 +3,7 @@ package ru.kpfu.itis.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.kpfu.itis.Exceptions.NotFoundException;
 import ru.kpfu.itis.Forms.RegistrationForm;
 import ru.kpfu.itis.Models.Enums.Role;
 import ru.kpfu.itis.Models.Enums.State;
@@ -61,7 +62,7 @@ public class UserServiceImpl implements UserService {
             return userCandidate.get();
         }
         else{
-            throw new IllegalArgumentException("User not found");
+            throw new NotFoundException("User");
         }
     }
 }

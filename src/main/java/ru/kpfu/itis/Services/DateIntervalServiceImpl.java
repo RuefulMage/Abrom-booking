@@ -3,12 +3,15 @@ package ru.kpfu.itis.Services;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.kpfu.itis.Exceptions.NotFoundException;
 import ru.kpfu.itis.Models.Cottage;
 import ru.kpfu.itis.Models.DateInterval;
 import ru.kpfu.itis.Models.Enums.IntervalStatus;
+import ru.kpfu.itis.Models.Enums.Role;
 import ru.kpfu.itis.Models.User;
 import ru.kpfu.itis.Repositories.DateIntervalsRepository;
 import ru.kpfu.itis.Transfer.DateIntervalDTO;
+import ru.kpfu.itis.Utils.MailSender;
 
 import java.util.Date;
 import java.util.List;
@@ -21,14 +24,17 @@ public class DateIntervalServiceImpl implements DateIntervalService {
     private DateIntervalsRepository dateIntervalsRepository;
     private UserService userService;
     private CottageService cottageService;
+    private MailSender mailSender;
 
     @Autowired
     public DateIntervalServiceImpl(DateIntervalsRepository dateIntervalsRepository,
                                    UserService userService,
-                                   CottageService cottageService) {
+                                   CottageService cottageService,
+                                   MailSender mailSender) {
         this.dateIntervalsRepository = dateIntervalsRepository;
         this.userService = userService;
         this.cottageService = cottageService;
+        this.mailSender = mailSender;
     }
 
     @Override
@@ -38,7 +44,7 @@ public class DateIntervalServiceImpl implements DateIntervalService {
         if(dateIntervalCandidate.isPresent()){
             return dateIntervalCandidate.get();
         }else {
-            throw new IllegalArgumentException("Date interval not found");
+            throw new NotFoundException("Date");
         }
     }
 
@@ -54,10 +60,14 @@ public class DateIntervalServiceImpl implements DateIntervalService {
         DateInterval dateInterval = DateInterval.builder()
                 .startOfInterval(dateIntervalDTO.getStartOfInterval())
                 .endOfInterval(dateIntervalDTO.getEndOfInterval())
-                .intervalStatus(IntervalStatus.PENDING)
                 .owner(user)
                 .cottage(cottage)
                 .build();
+        if(user.getRole().equals(Role.ROLE_ADMIN)){
+            dateInterval.setIntervalStatus(IntervalStatus.BOOKED);
+        }else {
+            dateInterval.setIntervalStatus(IntervalStatus.PENDING);
+        }
         if(checkIntervalForFree(dateInterval)){
             dateIntervalsRepository.save(dateInterval);
         }else{
@@ -75,6 +85,8 @@ public class DateIntervalServiceImpl implements DateIntervalService {
         DateInterval dateInterval = findByID(id);
         dateInterval.setIntervalStatus(status);
         dateIntervalsRepository.save(dateInterval);
+        String emailTo = dateInterval.getOwner().getEmail();
+        mailSender.sendMail(emailTo, "Your date interval have been changed a status", "Notification");
     }
 
     @Override
@@ -94,7 +106,7 @@ public class DateIntervalServiceImpl implements DateIntervalService {
         List<DateInterval> dateIntervalList = dateIntervalsRepository.findAllByIntervalStatus(status);
         log.info("Dates", dateIntervalList);
         if(dateIntervalList.isEmpty()){
-            throw new IllegalArgumentException("date not found");
+            throw new NotFoundException("Date");
         }
         return dateIntervalList;
     }

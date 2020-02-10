@@ -2,6 +2,7 @@ package ru.kpfu.itis.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.kpfu.itis.Exceptions.NotFoundException;
 import ru.kpfu.itis.Models.Token;
 import ru.kpfu.itis.Repositories.TokensRepository;
 
@@ -25,7 +26,7 @@ public class TokenServiceImpl implements TokenService {
         if(tokenCandidate.isPresent()){
             tokensRepository.delete(tokenCandidate.get().getId());
         }else {
-            throw new IllegalArgumentException("Token is not found");
+            throw new NotFoundException("Token");
         }
     }
 }

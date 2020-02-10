@@ -4,6 +4,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.kpfu.itis.Exceptions.NotFoundException;
 import ru.kpfu.itis.Forms.LoginForm;
 import ru.kpfu.itis.Models.Token;
 import ru.kpfu.itis.Models.User;
@@ -47,6 +48,6 @@ public class LoginServiceImpl implements LoginService {
                 tokensRepository.save(token);
                 return TokenDTO.from(token);
             }
-        }throw new IllegalArgumentException("User not found");
+        }throw new NotFoundException("User");
     }
 }

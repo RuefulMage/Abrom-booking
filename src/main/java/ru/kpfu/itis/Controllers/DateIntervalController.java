@@ -1,10 +1,10 @@
 package ru.kpfu.itis.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -14,27 +14,36 @@ import ru.kpfu.itis.Services.DateIntervalService;
 import ru.kpfu.itis.Services.UserService;
 import ru.kpfu.itis.Transfer.DateIntervalDTO;
 import ru.kpfu.itis.Utils.DateIntervalsMapper;
+import ru.kpfu.itis.Utils.MailSender;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/date-intervals")
+@PropertySource("classpath:application.properties")
 public class DateIntervalController {
+
+    @Resource
+    private Environment env;
 
     private DateIntervalService dateIntervalService;
     private UserService userService;
     private DateIntervalsMapper dateIntervalsMapper;
-    public JavaMailSender emailSender;
+    private MailSender mailSender;
 
+    @Autowired
     public DateIntervalController(DateIntervalService dateIntervalService,
-                                  UserService userService, DateIntervalsMapper dateIntervalsMapper,
-                                  JavaMailSender emailSender) {
+                                  UserService userService,
+                                  DateIntervalsMapper dateIntervalsMapper,
+                                  MailSender mailSender) {
         this.dateIntervalService = dateIntervalService;
         this.userService = userService;
         this.dateIntervalsMapper = dateIntervalsMapper;
-        this.emailSender = emailSender;
+        this.mailSender = mailSender;
     }
 
     @PostMapping("/add")
@@ -46,8 +55,11 @@ public class DateIntervalController {
         UserDetails userDetails = (UserDetails)authentication.getDetails();
         dateIntervalService.addDateInterval(userDetails.getUsername(), dateIntervalDTO);
 
-        String email = userService.findOneByLogin(userDetails.getUsername()).getEmail();
-        sendMail(email);
+        String[] emails = new String[3];
+        emails[0] = env.getRequiredProperty("admin-mail1");
+        emails[1] = env.getRequiredProperty("admin-mail2");
+        emails[2] = env.getRequiredProperty("admin-mail3");
+        mailSender.sendMail(emails, "Hello, you have a new rental request", "New request");
     }
 
     @GetMapping
@@ -72,13 +84,4 @@ public class DateIntervalController {
         return ResponseEntity.ok(dtos);
     }
 
-    //TODO сделать рассылку админам
-    public void sendMail(String email){
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(email);
-        message.setSubject("New request");
-        message.setText("Hello, you have a new rental request from");
-        this.emailSender.send(message);
-
-    }
 }

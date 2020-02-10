@@ -11,11 +11,19 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class ExceptionHandler {
 
 
-    @org.springframework.web.bind.annotation.ExceptionHandler(IllegalArgumentException.class)
+    @org.springframework.web.bind.annotation.ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseBody
+    public ErrorResponse handleNotFound(final NotFoundException e) {
+        log.info(e.getMessage());
+        return new ErrorResponse("NOT_FOUND", e.getMessage() + "not found");
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
     @ResponseBody
     public ErrorResponse handleIllegalArgument(final IllegalArgumentException e) {
         log.info(e.getMessage());
-        return new ErrorResponse("NOT_FOUND", e.getMessage());
+        return new ErrorResponse("Illegal argument", e.getMessage() );
     }
 }

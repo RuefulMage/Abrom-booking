@@ -2,6 +2,7 @@ package ru.kpfu.itis.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.kpfu.itis.Exceptions.NotFoundException;
 import ru.kpfu.itis.Transfer.CottageDTO;
 import ru.kpfu.itis.Models.Cottage;
 import ru.kpfu.itis.Models.User;
@@ -34,7 +35,7 @@ public class CottageServiceImpl implements CottageService {
                     .build();
             cottagesRepository.save(cottage);
         }else{
-            throw new IllegalArgumentException("Cottage is not found");
+            throw new NotFoundException("Cottage");
         }
     }
 
@@ -56,7 +57,7 @@ public class CottageServiceImpl implements CottageService {
             return cottageCandidate.get();
         }
         else{
-            throw new IllegalArgumentException("Cottage not found");
+            throw new NotFoundException("Cottage");
         }
     }
 }
