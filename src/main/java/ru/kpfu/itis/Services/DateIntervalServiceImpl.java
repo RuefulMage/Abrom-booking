@@ -50,7 +50,11 @@ public class DateIntervalServiceImpl implements DateIntervalService {
 
     @Override
     public List<DateInterval> findAll() {
-        return dateIntervalsRepository.findAll();
+        List<DateInterval> dateIntervalList = dateIntervalsRepository.findAll();
+        if (dateIntervalList.isEmpty()){
+            throw new NotFoundException("Date intervals");
+        }
+        return dateIntervalList;
     }
 
     @Override
