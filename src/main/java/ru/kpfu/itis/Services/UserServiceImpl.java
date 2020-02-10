@@ -51,12 +51,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findAll() {
-            return userRepository.findAll();
+        List<User> userList = userRepository.findAll();
+        if(userList.isEmpty()){
+            throw new NotFoundException("User");
+        }
+        return userList;
     }
 
     @Override
     public User findOne(Long user_id) {
-        return userRepository.findOne(user_id);
+        Optional<User> userCandidates = userRepository.findById(user_id);
+        if (userCandidates.isPresent()){
+            return userCandidates.get();
+        }else{
+            throw new NotFoundException("User");
+        }
     }
 
     @Override
