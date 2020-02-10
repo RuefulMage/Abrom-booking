@@ -136,7 +136,7 @@ public class DateIntervalServiceImpl implements DateIntervalService {
         if(list.isEmpty()){
             throw new NotFoundException("Date");
         }
-        return dateIntervalList;
+        return list;
     }
 
 
