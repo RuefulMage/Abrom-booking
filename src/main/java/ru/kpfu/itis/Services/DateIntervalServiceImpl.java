@@ -126,10 +126,7 @@ public class DateIntervalServiceImpl implements DateIntervalService {
 
     @Override
     public List<DateInterval> findAllExcludeDeleted() {
-        List<DateInterval> dateIntervalList = dateIntervalsRepository.findAll();
-        if(dateIntervalList.isEmpty()){
-            throw new NotFoundException("Date");
-        }
+        List<DateInterval> dateIntervalList = findAll();
         List<DateInterval> list = dateIntervalList.stream()
                 .filter(dateInterval -> !(dateInterval.getIntervalStatus().equals(IntervalStatus.DELETED)))
                 .collect(Collectors.toList());
