@@ -16,6 +16,7 @@ import ru.kpfu.itis.Utils.MailSender;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -125,9 +126,14 @@ public class DateIntervalServiceImpl implements DateIntervalService {
 
     @Override
     public List<DateInterval> findAllExcludeDeleted() {
-        List<DateInterval> dateIntervalList = dateIntervalsRepository.findAllByIntervalStatus_DeletedIsNot();
-        log.info("Dates", dateIntervalList);
+        List<DateInterval> dateIntervalList = dateIntervalsRepository.findAll();
         if(dateIntervalList.isEmpty()){
+            throw new NotFoundException("Date");
+        }
+        List<DateInterval> list = dateIntervalList.stream()
+                .filter(dateInterval -> !(dateInterval.getIntervalStatus().equals(IntervalStatus.DELETED)))
+                .collect(Collectors.toList());
+        if(list.isEmpty()){
             throw new NotFoundException("Date");
         }
         return dateIntervalList;
