@@ -123,6 +123,16 @@ public class DateIntervalServiceImpl implements DateIntervalService {
         return dateIntervalList;
     }
 
+    @Override
+    public List<DateInterval> findAllExcludeDeleted() {
+        List<DateInterval> dateIntervalList = dateIntervalsRepository.findAllByIntervalStatus_DeletedIsNot();
+        log.info("Dates", dateIntervalList);
+        if(dateIntervalList.isEmpty()){
+            throw new NotFoundException("Date");
+        }
+        return dateIntervalList;
+    }
+
 
     private boolean checkIntervalForFree(DateInterval dateInterval) {
         List<DateInterval> dateIntervalList = dateIntervalsRepository.findAll();

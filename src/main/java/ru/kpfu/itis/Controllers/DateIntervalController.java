@@ -62,10 +62,20 @@ public class DateIntervalController {
         mailSender.sendMail(emails, "Hello, you have a new rental request", "New request");
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<DateIntervalDTO>> getDateIntervals()
     {
         List<DateInterval> dateIntervalList = dateIntervalService.findAll();
+        List<DateIntervalDTO> dtos = dateIntervalList
+                .stream().map(dateInterval -> dateIntervalsMapper.toDto(dateInterval))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(dtos);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<DateIntervalDTO>> getDateIntervalsExcludeDeleted()
+    {
+        List<DateInterval> dateIntervalList = dateIntervalService.findAllExcludeDeleted();
         List<DateIntervalDTO> dtos = dateIntervalList
                 .stream().map(dateInterval -> dateIntervalsMapper.toDto(dateInterval))
                 .collect(Collectors.toList());

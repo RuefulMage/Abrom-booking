@@ -21,4 +21,6 @@ public interface DateIntervalsRepository extends JpaRepository<DateInterval, Lon
 
     List<DateInterval> findAllByIntervalStatus(IntervalStatus status);
 
+    List<DateInterval> findAllByIntervalStatus_DeletedIsNot();
+
 }

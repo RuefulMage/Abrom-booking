@@ -23,4 +23,6 @@ public interface DateIntervalService {
     List<DateInterval> findAllByUser(String userName);
 
     List<DateInterval> findAllByStatus(IntervalStatus status);
+
+    List<DateInterval> findAllExcludeDeleted();
 }
