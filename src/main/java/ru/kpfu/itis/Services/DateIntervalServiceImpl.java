@@ -17,6 +17,8 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.lang.Math.abs;
+
 @Service
 @Slf4j
 public class DateIntervalServiceImpl implements DateIntervalService {
@@ -164,7 +166,7 @@ public class DateIntervalServiceImpl implements DateIntervalService {
         log.info(today.toString());
         for (DateInterval interval: dateIntervalList) {
 
-            if ((interval.getEndOfInterval().getMonth() - today.getMonth()) > 2){
+            if ((abs(interval.getEndOfInterval().getMonth() - today.getMonth()) >= 2) || (abs(interval.getEndOfInterval().getYear() - today.getYear()) >= 1) ){
                 delete(interval.getId());
             }
         }
