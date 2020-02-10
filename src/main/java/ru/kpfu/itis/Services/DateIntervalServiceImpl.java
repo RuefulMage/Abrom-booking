@@ -13,9 +13,8 @@ import ru.kpfu.itis.Repositories.DateIntervalsRepository;
 import ru.kpfu.itis.Transfer.DateIntervalDTO;
 import ru.kpfu.itis.Utils.MailSender;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -52,6 +51,7 @@ public class DateIntervalServiceImpl implements DateIntervalService {
     @Override
     public List<DateInterval> findAll() {
         List<DateInterval> dateIntervalList = dateIntervalsRepository.findAll();
+        checkForOld(dateIntervalList);
         if (dateIntervalList.isEmpty()){
             throw new NotFoundException("Date intervals");
         }
@@ -157,11 +157,20 @@ public class DateIntervalServiceImpl implements DateIntervalService {
     }
 
 
-
-
     private boolean isWithinRange(Date testDate, Date startDate, Date endDate) {
         System.out.println(!(testDate.before(startDate) || testDate.after(endDate)));
         return !(testDate.before(startDate) || testDate.after(endDate));
+    }
+
+    public void checkForOld(List<DateInterval> dateIntervalList){
+        Date today = new Date();
+        log.info(today.toString());
+        for (DateInterval interval: dateIntervalList) {
+
+            if ((interval.getEndOfInterval().getMonth() - today.getMonth()) > 2){
+                delete(interval.getId());
+            }
+        }
     }
 
 
