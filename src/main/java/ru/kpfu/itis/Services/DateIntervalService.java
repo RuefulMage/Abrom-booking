@@ -25,4 +25,6 @@ public interface DateIntervalService {
     List<DateInterval> findAllByStatus(IntervalStatus status);
 
     List<DateInterval> findAllExcludeDeleted();
+
+    List<DateInterval> findAllExcludeDeletedByCottage(Long id);
 }

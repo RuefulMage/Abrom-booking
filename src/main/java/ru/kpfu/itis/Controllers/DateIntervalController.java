@@ -94,4 +94,13 @@ public class DateIntervalController {
         return ResponseEntity.ok(dtos);
     }
 
+    @GetMapping("/{cottage-id}")
+    public ResponseEntity<List<DateIntervalDTO>> getByCottage(@PathVariable("cottage-id") Long id){
+        List<DateInterval> dateIntervalList = dateIntervalService.findAllExcludeDeletedByCottage(id);
+        List<DateIntervalDTO> dtos = dateIntervalList
+                .stream().map(dateInterval -> dateIntervalsMapper.toDto(dateInterval))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(dtos);
+    }
+
 }

@@ -138,6 +138,18 @@ public class DateIntervalServiceImpl implements DateIntervalService {
         return list;
     }
 
+    @Override
+    public List<DateInterval> findAllExcludeDeletedByCottage(Long id) {
+        List<DateInterval> dateIntervalList = dateIntervalsRepository.findAllByCottage_Id(id);
+        List<DateInterval> list = dateIntervalList.stream()
+                .filter(dateInterval -> !(dateInterval.getIntervalStatus().equals(IntervalStatus.DELETED)))
+                .collect(Collectors.toList());
+        if(list.isEmpty()){
+            throw new NotFoundException("Date");
+        }
+        return list;
+    }
+
 
     private boolean checkIntervalForFree(DateInterval dateInterval) {
         List<DateInterval> dateIntervalList = findAllExcludeDeleted();
