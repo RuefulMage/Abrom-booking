@@ -138,7 +138,7 @@ public class DateIntervalServiceImpl implements DateIntervalService {
 
 
     private boolean checkIntervalForFree(DateInterval dateInterval) {
-        List<DateInterval> dateIntervalList = dateIntervalsRepository.findAll();
+        List<DateInterval> dateIntervalList = findAllExcludeDeleted();
         for (DateInterval dateIntervalListItem:
              dateIntervalList) {
             Date startDate = dateIntervalListItem.getStartOfInterval();
