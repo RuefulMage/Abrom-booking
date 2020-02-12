@@ -195,7 +195,8 @@ public class DateIntervalServiceImpl implements DateIntervalService {
         for (DateInterval interval: dateIntervalList) {
 
             if ((abs(interval.getEndOfInterval().getMonth() - today.getMonth()) >= 2) || (abs(interval.getEndOfInterval().getYear() - today.getYear()) >= 1) ){
-                delete(interval.getId());
+//                delete(interval.getId());
+                log.info("Magdi");
             }
         }
     }
