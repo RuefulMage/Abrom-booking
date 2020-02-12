@@ -193,10 +193,11 @@ public class DateIntervalServiceImpl implements DateIntervalService {
         Date today = new Date();
         log.info(today.toString());
         for (DateInterval interval: dateIntervalList) {
-
-            if ((abs(interval.getEndOfInterval().getMonth() - today.getMonth()) >= 2) || (abs(interval.getEndOfInterval().getYear() - today.getYear()) >= 1) ){
-//                delete(interval.getId());
-                log.info("Magdi");
+            long msTimeDistance = today.getTime() - interval.getEndOfInterval().getTime();
+            long msDay = 24 * 60 * 60 * 1000;  //сколько миллисекунд в одних сутках
+            int dayCount = (int) (msTimeDistance/msDay);
+            if (dayCount > 14){
+                delete(interval.getId());
             }
         }
     }
