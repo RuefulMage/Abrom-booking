@@ -29,4 +29,6 @@ public interface DateIntervalService {
     List<DateInterval> findAllExcludeDeletedByCottage(Long id);
 
     List<DateInterval> findAllByUserAndCottage(String username, Long id);
+
+    void deleteByUser(Long id, String username);
 }

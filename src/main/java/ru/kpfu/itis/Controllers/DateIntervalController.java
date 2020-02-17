@@ -18,7 +18,6 @@ import ru.kpfu.itis.Utils.MailSender;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +28,6 @@ public class DateIntervalController {
 
     @Resource
     private Environment env;
-
     private DateIntervalService dateIntervalService;
     private UserService userService;
     private DateIntervalsMapper dateIntervalsMapper;
@@ -113,6 +111,15 @@ public class DateIntervalController {
                 .stream().map(dateInterval -> dateIntervalsMapper.toDto(dateInterval))
                 .collect(Collectors.toList());
         return ResponseEntity.ok(dtos);
+    }
+
+    @PostMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteDateInterval(@PathVariable("id") Long id){
+        TokenAuthentication authentication = (TokenAuthentication) SecurityContextHolder
+                .getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getDetails();
+        dateIntervalService.deleteByUser(id, userDetails.getUsername());
     }
 
 }

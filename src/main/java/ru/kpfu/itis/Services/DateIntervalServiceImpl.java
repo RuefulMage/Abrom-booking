@@ -163,6 +163,17 @@ public class DateIntervalServiceImpl implements DateIntervalService {
         return list;
     }
 
+    @Override
+    public void deleteByUser(Long id, String username) {
+        User user = userService.findOneByLogin(username);
+        Optional<DateInterval> dateIntervalCandidate = dateIntervalsRepository.findByOwnerAndId(id, user);
+        if(dateIntervalCandidate.isPresent()){
+            updateStatus(dateIntervalCandidate.get().getId(), IntervalStatus.DELETED);
+        }else{
+            throw new NotFoundException();
+        }
+    }
+
 
     private boolean checkIntervalForFree(DateInterval dateInterval) {
         List<DateInterval> dateIntervalList = findAllExcludeDeleted();
