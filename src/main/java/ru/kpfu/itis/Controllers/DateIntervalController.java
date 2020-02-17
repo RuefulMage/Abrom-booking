@@ -120,6 +120,11 @@ public class DateIntervalController {
                 .getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getDetails();
         dateIntervalService.deleteByUser(id, userDetails.getUsername());
+        String[] emails = new String[3];
+        emails[0] = env.getRequiredProperty("admin-mail1");
+        emails[1] = env.getRequiredProperty("admin-mail2");
+        emails[2] = env.getRequiredProperty("admin-mail3");
+        mailSender.sendMail(emails, "One of dates was deleted by user" + userDetails.getUsername(), "Reservation canceled");
     }
 
 }
