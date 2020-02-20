@@ -166,7 +166,7 @@ public class DateIntervalServiceImpl implements DateIntervalService {
     @Override
     public void deleteByUser(Long id, String username) {
         User user = userService.findOneByLogin(username);
-        Optional<DateInterval> dateIntervalCandidate = dateIntervalsRepository.findByOwnerAndId(id, user);
+        Optional<DateInterval> dateIntervalCandidate = dateIntervalsRepository.findByOwnerAndId(user,id);
         if(dateIntervalCandidate.isPresent()){
             updateStatus(dateIntervalCandidate.get().getId(), IntervalStatus.DELETED);
         }else{
