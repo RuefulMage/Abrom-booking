@@ -176,22 +176,26 @@ public class DateIntervalServiceImpl implements DateIntervalService {
 
 
     private boolean checkIntervalForFree(DateInterval dateInterval) {
-        List<DateInterval> dateIntervalList = findAllExcludeDeleted();
-        for (DateInterval dateIntervalListItem:
-             dateIntervalList) {
-            Date startDate = dateIntervalListItem.getStartOfInterval();
-            Date endDate = dateIntervalListItem.getEndOfInterval();
-            if(!dateInterval.getCottage().equals(dateIntervalListItem.getCottage())){
-                continue;
+        try{
+            List<DateInterval> dateIntervalList = findAllExcludeDeleted();
+            for (DateInterval dateIntervalListItem:
+                    dateIntervalList) {
+                Date startDate = dateIntervalListItem.getStartOfInterval();
+                Date endDate = dateIntervalListItem.getEndOfInterval();
+                if(!dateInterval.getCottage().equals(dateIntervalListItem.getCottage())){
+                    continue;
+                }
+                if(isWithinRange(dateInterval.getStartOfInterval(),startDate, endDate)
+                        || isWithinRange(dateInterval.getEndOfInterval(),startDate, endDate)
+                        || isWithinRange(startDate, dateInterval.getStartOfInterval(), dateInterval.getEndOfInterval())
+                        || isWithinRange(endDate, dateInterval.getStartOfInterval(), dateInterval.getEndOfInterval())){
+                    return false;
+                }
             }
-            if(isWithinRange(dateInterval.getStartOfInterval(),startDate, endDate)
-                    || isWithinRange(dateInterval.getEndOfInterval(),startDate, endDate)
-                    || isWithinRange(startDate, dateInterval.getStartOfInterval(), dateInterval.getEndOfInterval())
-                    || isWithinRange(endDate, dateInterval.getStartOfInterval(), dateInterval.getEndOfInterval())){
-                return false;
-            }
+            return true;
+        }catch(NotFoundException e){
+            return true;
         }
-        return true;
     }
 
 
@@ -212,6 +216,4 @@ public class DateIntervalServiceImpl implements DateIntervalService {
             }
         }
     }
-
-
 }

@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -30,4 +31,7 @@ public class Cottage {
     @OneToMany(mappedBy = "cottage", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<DateInterval> dateIntervals;
+
+    @ElementCollection
+    private Map<String, Integer> rooms;
 }

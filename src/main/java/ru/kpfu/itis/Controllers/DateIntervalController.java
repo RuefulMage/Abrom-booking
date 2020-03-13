@@ -13,7 +13,7 @@ import ru.kpfu.itis.Security.Token.TokenAuthentication;
 import ru.kpfu.itis.Services.DateIntervalService;
 import ru.kpfu.itis.Services.UserService;
 import ru.kpfu.itis.Transfer.DateIntervalDTO;
-import ru.kpfu.itis.Utils.DateIntervalsMapper;
+import ru.kpfu.itis.Utils.Mappers.DateIntervalsMapper;
 import ru.kpfu.itis.Utils.MailSender;
 
 import javax.annotation.Resource;

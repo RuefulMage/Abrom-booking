@@ -8,6 +8,7 @@ import ru.kpfu.itis.Models.Cottage;
 import ru.kpfu.itis.Models.User;
 import ru.kpfu.itis.Repositories.CottagesRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,6 +33,7 @@ public class CottageServiceImpl implements CottageService {
             Cottage.builder()
                     .description(cottageDTO.getDescription())
                     .address(cottageDTO.getAddress())
+                    .rooms(cottageDTO.getRooms())
                     .build();
             cottagesRepository.save(cottage);
         }else{
@@ -45,6 +47,7 @@ public class CottageServiceImpl implements CottageService {
         Cottage cottage = Cottage.builder()
                 .address(cottageDTO.getAddress())
                 .description(cottageDTO.getDescription())
+                .rooms(cottageDTO.getRooms())
                 .build();
         cottagesRepository.save(cottage);
     }
@@ -58,6 +61,16 @@ public class CottageServiceImpl implements CottageService {
         }
         else{
             throw new NotFoundException("Cottage");
+        }
+    }
+
+    @Override
+    public List<Cottage> getAllCottages() {
+        List<Cottage> cottages = cottagesRepository.findAll();
+        if(cottages.isEmpty()) {
+            throw new NotFoundException("Cottage");
+        }else{
+            return cottages;
         }
     }
 }

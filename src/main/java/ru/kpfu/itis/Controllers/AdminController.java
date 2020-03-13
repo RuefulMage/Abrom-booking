@@ -9,7 +9,7 @@ import ru.kpfu.itis.Models.DateInterval;
 import ru.kpfu.itis.Models.Enums.IntervalStatus;
 import ru.kpfu.itis.Services.DateIntervalService;
 import ru.kpfu.itis.Transfer.DateIntervalDTO;
-import ru.kpfu.itis.Utils.DateIntervalsMapper;
+import ru.kpfu.itis.Utils.Mappers.DateIntervalsMapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
