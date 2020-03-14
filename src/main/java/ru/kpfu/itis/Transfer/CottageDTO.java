@@ -25,4 +25,6 @@ public class CottageDTO {
 
     @NotNull
     private Map<String, Integer> rooms;
+
+    private String wishes;
 }

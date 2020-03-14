@@ -34,4 +34,8 @@ public class Cottage {
 
     @ElementCollection
     private Map<String, Integer> rooms;
+
+    @Column(name = "wishes")
+    private String wishes;
+
 }

@@ -34,6 +34,7 @@ public class CottageServiceImpl implements CottageService {
                     .description(cottageDTO.getDescription())
                     .address(cottageDTO.getAddress())
                     .rooms(cottageDTO.getRooms())
+                    .wishes(cottageDTO.getWishes())
                     .build();
             cottagesRepository.save(cottage);
         }else{
@@ -48,6 +49,7 @@ public class CottageServiceImpl implements CottageService {
                 .address(cottageDTO.getAddress())
                 .description(cottageDTO.getDescription())
                 .rooms(cottageDTO.getRooms())
+                .wishes(cottageDTO.getWishes())
                 .build();
         cottagesRepository.save(cottage);
     }

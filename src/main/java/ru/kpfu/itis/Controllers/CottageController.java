@@ -12,7 +12,6 @@ import ru.kpfu.itis.Security.Token.TokenAuthentication;
 import ru.kpfu.itis.Transfer.CottageDTO;
 import ru.kpfu.itis.Models.Cottage;
 import ru.kpfu.itis.Services.CottageService;
-import ru.kpfu.itis.Transfer.DateIntervalDTO;
 import ru.kpfu.itis.Utils.MailSender;
 import ru.kpfu.itis.Utils.Mappers.CottageMapper;
 
