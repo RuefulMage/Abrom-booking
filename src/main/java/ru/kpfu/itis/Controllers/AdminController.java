@@ -20,6 +20,7 @@ public class AdminController {
     private DateIntervalService dateIntervalService;
     private DateIntervalsMapper dateIntervalsMapper;
 
+    // Проверка
     @Autowired
     public AdminController(DateIntervalService dateIntervalService, DateIntervalsMapper dateIntervalsMapper) {
         this.dateIntervalService = dateIntervalService;
